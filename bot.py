@@ -34,8 +34,9 @@ class Bot(Client):
         self.username = me.username
         self.first_name = me.first_name
         self.set_parse_mode(ParseMode.DEFAULT)
-        text = "**๏[-ิ_•ิ]๏ bot restarted !**"
 
+        # Notify all forward users
+        text = "**๏[-ิ_•ิ]๏ bot restarted !**"
         success = failed = 0
         users = await db.get_all_frwd()
         async for user in users:
@@ -60,17 +61,9 @@ class Bot(Client):
         logging.info(msg)
 
     def set_webhook(self, url: str):
-        # Sets the webhook using Pyrogram's internal API
-        self.loop.run_until_complete(self.invoke(
-            raw.functions.messages.SetBotCallbackAnswer(
-                peer=None,
-                alert=False,
-                message=f"Webhook set to {url}",
-                cache_time=0
-            )
-        ))
+        # Correct webhook setup — without using raw functions
         self.loop.run_until_complete(self.set_webhook(url))
-        logging.info(f"Webhook set to {url}")
+        self.log.info(f"Webhook set to {url}")
 
     def process_update(self, update: dict):
         # Feed Telegram updates to Pyrogram manually
@@ -78,4 +71,4 @@ class Bot(Client):
             parsed_update = Update.de_json(update, self)
             self.loop.create_task(self.dispatcher.feed_update(parsed_update))
         except Exception as e:
-            logging.error(f"Failed to process update: {e}")
+            self.log.error(f"Failed to process update: {e}")
