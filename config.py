@@ -3,15 +3,15 @@ from os import environ
 
 class Config:
     
-    API_ID = environ.get("API_ID", "23148998")
-    API_HASH = environ.get("API_HASH", "d948f2f1b811b3fa298cd10f9add3331")
-    BOT_TOKEN = environ.get("BOT_TOKEN", "7667315051:AAFhe6o6_7VWPjNC2CuFOhBUx7Mw17F28Rs") 
+    API_ID = environ.get("API_ID", "")
+    API_HASH = environ.get("API_HASH", "")
+    BOT_TOKEN = environ.get("BOT_TOKEN", "") 
     BOT_OWNER_ID = [int(id) for id in environ.get("BOT_OWNER_ID", '5223903292').split()]
     BOT_SESSION = environ.get("BOT_SESSION", "bot") 
 
     PICS = (environ.get('PICS', 'https://graph.org/file/e223aea8aca83e99162bb.jpg'))
     
-    DATABASE_URI = environ.get("DATABASE_URI", "mongodb+srv://memo:memo@memories.woq9ths.mongodb.net/?retryWrites=true&w=majority&appName=memories")
+    DATABASE_URI = environ.get("DATABASE_URI", "")
     DATABASE_NAME = environ.get("DATABASE_NAME", "memories")
     
     LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002227605732'))
